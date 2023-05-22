@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class Player : Entity
 {
     [SerializeField] private float speed = 3f;
     [SerializeField] private int lives = 3;
     [SerializeField] private float jump = 15f;
-    private bool isGrounded;
 
+    private bool isGrounded;
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     private Animator anim;
 
+    public static Player Instance {get; set;}
+    public bool isFlipped;
 
     private AnimStates State
     {
@@ -31,6 +31,13 @@ public class PlayerMove : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        
+        if(Instance != null && Instance != this){
+            Destroy(this.gameObject);
+        }
+        else{
+            Instance = this;
+        }
     }
 
     private void FixedUpdate()
@@ -61,7 +68,8 @@ public class PlayerMove : MonoBehaviour
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
-        sprite.flipX = direction.x < 0.0f;
+        isFlipped = direction.x < 0.0f;
+        sprite.flipX = isFlipped;
     }
 
     private void Jump()
@@ -78,6 +86,22 @@ public class PlayerMove : MonoBehaviour
             State = AnimStates.Jump;
     }
 
+
+    public override void GetDamage(){
+        lives--;
+        if(lives < 1){
+            Debug.Log($"You'r dead!");
+            Die();
+        }
+        else{
+            Debug.Log($"lives left {lives}");
+        }
+    }
+    
+    public override void Die()
+    {
+        this.gameObject.SetActive(false);
+    }
 }
 
 public enum AnimStates
