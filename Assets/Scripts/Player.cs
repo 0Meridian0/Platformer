@@ -100,7 +100,7 @@ public class Player : Entity
     
     public override void Die()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }
 
