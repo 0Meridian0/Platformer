@@ -86,7 +86,6 @@ public class Player : Entity
             State = AnimStates.Jump;
     }
 
-
     public override void GetDamage(){
         lives--;
         if(lives < 1){
