@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5897174594199583972}
   - component: {fileID: 5897174594199583973}
-  - component: {fileID: 5897174594199583995}
+  - component: {fileID: 7835401430674010308}
   m_Layer: 0
   m_Name: DeadZone
   m_TagString: Untagged
@@ -58,7 +58,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 50, y: 2.505847}
   m_EdgeRadius: 0
---- !u!114 &5897174594199583995
+--- !u!114 &7835401430674010308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

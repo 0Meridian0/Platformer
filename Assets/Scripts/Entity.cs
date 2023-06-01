@@ -2,9 +2,19 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public virtual void GetDamage(){}
+    [SerializeField] private int lives = 0;
 
-    public virtual void Die(){
+    public void GetDamage()
+    {
+        lives--;
+        if (lives < 1)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
         gameObject.SetActive(false);
     }
 }

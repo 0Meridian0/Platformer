@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlyingEnemy : MonoBehaviour
+public class _FlyingEnemy : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
     [SerializeField] private float radius;

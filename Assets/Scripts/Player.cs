@@ -2,74 +2,81 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private int lives = 3;
-    [SerializeField] private float jump = 15f;
+    #region Serialized fields 
 
-    private bool isGrounded;
-    private Rigidbody2D rb;
-    private SpriteRenderer sprite;
-    private Animator anim;
+    [SerializeField] private float speed;
+    [SerializeField] private float jump;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private BoxCollider2D poseStand;
+    [SerializeField] private BoxCollider2D poseDown;
+    [SerializeField] private Transform groundColliderPosition;
+    [SerializeField] private Transform undergroundColliderPosition;
+    [SerializeField] private LayerMask ground;
+    // [SerializeField] private int lives;
+    // [SerializeField] private Animator animation;
 
-    public static Player Instance {get; set;}
-    public bool isFlipped;
+    #endregion
 
-    private AnimStates State
-    {
-        get
-        {
-            return (AnimStates)anim.GetInteger("state");
-        }
-        set
-        {
-            anim.SetInteger("state", (int)value);
-        }
-    }
+    #region Private fields
+
+    private bool isGrounded = true;
+    private bool isUndergrounded = false;
+    public bool isSpriteFlipped;
+
+    #endregion
+
+    public static Player Initiate { get; set; }
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        sprite = GetComponentInChildren<SpriteRenderer>();
-        
-        if(Instance != null && Instance != this){
+        if (Initiate != null && Initiate != this)
+        {
             Destroy(this.gameObject);
         }
-        else{
-            Instance = this;
+        else
+        {
+            Initiate = this;
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetButton("Horizontal"))
+        {
+            Move();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) && isGrounded && !isUndergrounded)
+        {
+            Jump();
+        }
+
+        if (Input.GetKey(KeyCode.S) && isGrounded)
+        {
+            poseStand.enabled = false;
+            poseDown.enabled = true;
+        }
+        else if (!isUndergrounded)
+        {
+            poseStand.enabled = true;
+            poseDown.enabled = false;
         }
     }
 
     private void FixedUpdate()
     {
         CheckGrounded();
-    }
-
-    private void Update()
-    {
-        if (isGrounded)
-            State = AnimStates.Idle;
-
-        if (Input.GetButton("Horizontal"))
-        {
-            Move();
-        }
-        if (Input.GetButtonDown("Vertical") && isGrounded)
-        {
-            Jump();
-        }
+        CheckUndergrounded();
     }
 
     private void Move()
     {
-        if (isGrounded)
-            State = AnimStates.Run;
-
-        Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+        Vector3 direction = transform.right * Input.GetAxisRaw("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
-        isFlipped = direction.x < 0.0f;
-        sprite.flipX = isFlipped;
+        isSpriteFlipped = direction.x < 0.0f;
+        sprite.flipX = isSpriteFlipped;
     }
 
     private void Jump()
@@ -79,31 +86,19 @@ public class Player : Entity
 
     private void CheckGrounded()
     {
-        Collider2D[] collider = Physics2D.OverlapCircleAll(transform.position, 0.3f);
-        isGrounded = collider.Length >= 1;
-
-        if (!isGrounded)
-            State = AnimStates.Jump;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(
+                                 groundColliderPosition.position, 0.3f);
+        isGrounded = colliders.Length > 1;
     }
 
-    public override void GetDamage(){
-        lives--;
-        if(lives < 1){
-            Debug.Log($"You'r dead!");
-            Die();
-        }
-        else{
-            Debug.Log($"lives left {lives}");
-        }
-    }
-    
-    public override void Die()
+    private void CheckUndergrounded()
     {
-        gameObject.SetActive(false);
+        isUndergrounded = Physics2D.OverlapCircle(undergroundColliderPosition.position, 0.3f, ground);
     }
-}
 
-public enum AnimStates
-{
-    Idle, Run, Jump
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.DrawWireSphere(groundColliderPosition.position, 0.3f);
+    //     Gizmos.DrawWireSphere(undergroundColliderPosition.position, 0.3f);
+    // }
 }

@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1977881004148351901}
   - component: {fileID: 1977881004148351900}
-  - component: {fileID: 1977881004148351903}
-  - component: {fileID: 1977881004148351902}
   m_Layer: 0
   m_Name: FlyingEnemy
   m_TagString: Untagged
@@ -60,36 +58,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1977881004148351903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977881004148351841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfe06752a893b5d49be0921d791577c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1
-  radius: 6
-  target: {fileID: 0}
-  sprite: {fileID: 1977881004208379323}
-  isGizmoOn: 1
---- !u!114 &1977881004148351902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977881004148351841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00005df24cd5d5349a0efacffb75abf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives: 2
 --- !u!1 &1977881004208379325
 GameObject:
   m_ObjectHideFlags: 0

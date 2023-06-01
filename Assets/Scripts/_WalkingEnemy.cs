@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WalkingEnemy : Entity
+public class _WalkingEnemy : _Entity
 {
     [SerializeField] private float radius = 0.1f;
     [SerializeField] private float speed = 0.8f;

@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class DeadZone : Entity
+public class DeadZone : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject == Player.Instance.gameObject)
+        Player player = Player.Initiate;
+        if (other.gameObject == player.gameObject)
         {
-            Player.Instance.Die();
+            player.Die();
         }
     }
 }
