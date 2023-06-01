@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int _attackRange;
+    [SerializeField] private int _damage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void CloseRangeAttack(){}
+
+    public void LongRangeAttack(){}
 }
