@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyPatrol : MonoBehaviour
+public class EnemyPatrolInArea : MonoBehaviour
 {
     [SerializeField] private float attackRadius = 0.1f;
     [SerializeField] private Transform attackPosition;
