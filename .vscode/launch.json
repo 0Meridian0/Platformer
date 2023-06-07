@@ -3,9 +3,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Unity Editor",
+            "name": "Windows Player",
             "type": "unity",
-            "path": "${workspaceFolder}/Library/EditorInstance.json",
             "request": "launch"
         },
         {

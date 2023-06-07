@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public void Sword()
-    {
+    private int _attackRange;
+    private int _damage;
 
-    }
-
-    public void Bow()
-    {
-
-    }
-
-    public void FireBall()
-    {
-
-    }
+    private Weapon[] weapons;
 }
+
+public class Sword : Weapon
+{}
+
+public class Bow : Weapon
+{}
+
+public class FireBall : Weapon
+{}
